@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  npcrm-client:
+    command:
+      - "/bin/bash"
+      - "-c"
+      - "yarn global add @vue/cli @vue/cli-service-global && yarn serve"
+    container_name: npcrm-client
+    entrypoint:
+      - /npcrm-client-entrypoint.sh
+    image: keymux/docker-ubuntu-nvm-yarn
+    ports:
+      - 8080:8080
+    volumes:
+      - ./npcrm-client/entrypoint.sh:/npcrm-client-entrypoint.sh
+      - ../npcrm-client:/app
+    working_dir: '/app'
+  npcrm-server:
+    command:
+      - "/bin/bash"
+      - "-c"
+      - "yarn start"
+    container_name: npcrm-server
+    image: keymux/docker-ubuntu-nvm-yarn
+    ports:
+      - 3000:3000
+    volumes:
+      - ../npcrm-server:/app
+    working_dir: '/app'
