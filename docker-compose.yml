@@ -10,7 +10,6 @@ services:
       - 8080:8080
     stop_grace_period: 0s
     volumes:
-      - ./npcrm-client/entrypoint.sh:/npcrm-client-entrypoint.sh
       - ../npcrm-client:/app
     working_dir: '/app'
   npcrm-server:
@@ -28,5 +27,6 @@ services:
     working_dir: '/app'
   db:
     environment:
+      POSTGRES_USER: npcrm
       POSTGRES_PASSWORD: override-me-in-docker-compose.override.yml
     image: postgres
