@@ -16,7 +16,8 @@ services:
     command:
       - yarn
       - nodemon
-      - "-x 'yarn start'"
+      - -x
+      - 'yarn start'
     container_name: npcrm-server
     image: keymux/docker-ubuntu-nvm-yarn
     ports:
