@@ -19,6 +19,10 @@ services:
       - -x
       - 'yarn start'
     container_name: npcrm-server
+    environment:
+      # Override this in `docker-compose.override.yml` for production,
+      # but leave `docker` for local development.
+      NODE_ENV: docker
     image: keymux/docker-ubuntu-nvm-yarn
     ports:
       - 3000:3000
