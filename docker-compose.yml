@@ -10,15 +10,19 @@ services:
       - 8080:8080
     stop_grace_period: 0s
     volumes:
-      - ./npcrm-client/entrypoint.sh:/npcrm-client-entrypoint.sh
       - ../npcrm-client:/app
     working_dir: '/app'
   npcrm-server:
     command:
       - yarn
       - nodemon
-      - "-x 'yarn start'"
+      - -x
+      - 'yarn start'
     container_name: npcrm-server
+    environment:
+      # Override this in `docker-compose.override.yml` for production,
+      # but leave `docker` for local development.
+      NODE_ENV: docker
     image: keymux/docker-ubuntu-nvm-yarn
     ports:
       - 3000:3000
@@ -26,3 +30,8 @@ services:
     volumes:
       - ../npcrm-server:/app
     working_dir: '/app'
+  db:
+    environment:
+      POSTGRES_USER: npcrm
+      POSTGRES_PASSWORD: override-me-in-docker-compose.override.yml
+    image: postgres
